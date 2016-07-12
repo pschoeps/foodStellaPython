@@ -1,0 +1,17 @@
+oz
+pound
+ounce
+cup
+tablespoon
+teaspoon
+strip
+inch
+chunks
+tbs.
+piece
+package
+large
+medium
+small
+whole
+wedge
