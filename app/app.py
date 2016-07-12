@@ -6,7 +6,7 @@ import re
 import math
 import json
 import string
-#import numpy as np
+import numpy as np
 #from sklearn.preprocessing import normalize
 #from difflib import SequenceMatcher
 #import nltk
