@@ -4,3 +4,4 @@ flask_restful
 numpy
 nltk
 scipy
+sklearn
