@@ -1,9 +1,6 @@
 gunicorn==19.4.5
 flask 
 flask_restful
-math
-json
-string
 numpy
 sklearn
 nltk
