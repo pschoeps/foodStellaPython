@@ -8,7 +8,7 @@ import json
 import string
 import numpy as np
 from sklearn.preprocessing import normalize
-from DiffLibrary import SequenceMatcher
+from difflib import SequenceMatcher
 import nltk
 
 
@@ -16,7 +16,7 @@ ingredientsfile = open("recipe_ingredients.json", "r")
 
 class Parse_Data(Resource):
     def get(self):
-        return ["one", "two", "three"]
+        return request.args.get('username')
 
 app = Flask(__name__)
 api = Api(app)
