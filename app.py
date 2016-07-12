@@ -7,9 +7,9 @@ import math
 import json
 import string
 import numpy as np
-from sklearn.preprocessing import normalize
-from difflib import SequenceMatcher
-import nltk
+#from sklearn.preprocessing import normalize
+#from difflib import SequenceMatcher
+#import nltk
 
 
 ingredientsfile = open("recipe_ingredients.json", "r")
