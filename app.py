@@ -8,8 +8,8 @@ import json
 import string
 import numpy as np
 from sklearn.preprocessing import normalize
-from robotframework_difflibrary import SequenceMatcher
-#import nltk
+from DiffLibrary import SequenceMatcher
+import nltk
 
 
 ingredientsfile = open("recipe_ingredients.json", "r")
