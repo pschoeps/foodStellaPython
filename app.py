@@ -8,7 +8,7 @@ import json
 import string
 import numpy as np
 from sklearn.preprocessing import normalize
-#from difflib import SequenceMatcher
+from robotframework_difflibrary import SequenceMatcher
 #import nltk
 
 
