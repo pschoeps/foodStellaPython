@@ -1,7 +1,6 @@
 gunicorn==19.4.5
 flask 
 flask_restful
-re
 math
 json
 string
