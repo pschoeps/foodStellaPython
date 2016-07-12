@@ -5,3 +5,4 @@ numpy
 nltk
 scipy
 sklearn
+robotframework-difflibrary
