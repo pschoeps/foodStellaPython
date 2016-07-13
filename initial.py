@@ -3,10 +3,9 @@ import math
 import json
 import string
 import numpy as np
-#from sklearn.preprocessing import normalize
-#import sklearn
+from sklearn.preprocessing import normalize
 from difflib import SequenceMatcher
-#import nltk
+import nltk
 
 
 ##### PART 1 ##########

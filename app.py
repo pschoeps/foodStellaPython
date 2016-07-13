@@ -12,11 +12,14 @@ from difflib import SequenceMatcher
 import nltk
 
 
+
+
 ingredientsfile = open("recipe_ingredients.json", "r")
 
 class Parse_Data(Resource):
     def get(self):
-        return request.args.get('username')
+    	return "here is a response"
+        #import initial
 
 app = Flask(__name__)
 api = Api(app)
