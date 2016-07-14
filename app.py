@@ -18,7 +18,7 @@ ingredientsfile = open("recipe_ingredients.json", "r")
 
 class Parse_Data(Resource):
     def get(self):
-    	return [1537, 1538]
+    	import initial
         #import initial
 
 app = Flask(__name__)
