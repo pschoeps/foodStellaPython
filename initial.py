@@ -16,6 +16,7 @@ file = open("recipe_ingredients_parsed_with_units.json", "w")
 
 conversions = {'ounce': 1, 'pound': 16, 'cup': 8, 'tablespoon': 0.5, 'teaspoon': 0.16666}
 
+## This part of the code converts everything to ounces - it parses the fractions 
 counter = 0
 for line in ingredientsfile:
 	matchObj = re.match( r'.*\"quantity\": \"([^\"]*)\".*', line)
@@ -104,6 +105,7 @@ for line in ingredientsfile:
 			
 			unit_assignment = "NA"
 
+			#matches units based on whichever unit name appears first
 			unit_words = matchObj2.group(2).split(' ')
 			for word in unit_words:
 				if "ounce" in word or "oz" in word:
@@ -160,7 +162,7 @@ file.close()
 
 
 
-
+#searches and removes words that are in "quantities.txt" and 'other_words.txt"'
 
 quant_list = list()
 other_words = list()
@@ -192,10 +194,8 @@ counter = 0
 for line in ingredientsjson:
 	matchObj = re.match(r'.*\"detail\": \"([^\"]*)\".*', line)
 	if matchObj:
-		#print matchObj.group(1)
 
 		detail_without_parentheses = re.sub(r'\([^)]*\)', "", matchObj.group(1))
-		#print detail_without_parentheses
 		detail_words = detail_without_parentheses.split(' ')
 		real_detail_words = []
 		for i in detail_words:
@@ -206,14 +206,12 @@ for line in ingredientsjson:
 		for i in real_detail_words:
 			new_detail += i + ' '
 
-		#print new_detail
 		new_detail = new_detail.strip(' ')
 
 		replacewith = "\"detail\": \"" + new_detail + "\""
 
 		num = re.sub(r'\"detail\": \"[^\"]*\"', replacewith, line)
-		# print num
-		# file.write(num)
+		
 
 
 
@@ -276,8 +274,6 @@ ingredientsjson = open("recipe_ingredients_trimmed.json", "r")
 file = open("recipe_ingredients_6_3_16.json", "w")
 
 counter = 0
-#edwords = []
-#lywords = []
 for line in ingredientsjson:
 	matchObj = re.match(r'.*\"ingredient\": \"([^\"]*)\".*', line)
 	if matchObj:
@@ -315,15 +311,6 @@ for line in ingredientsjson:
 		num = re.sub(r'\"ingredient\": \"[^\"]*\"', replacewith, line)
 		file.write(num)
 
-		#matchObj2 = re.match(r'.*[ |^](.*)ed[,| |$].*', ingredient)
-		#if matchObj2:
-	#		if matchObj2.group(1) not in edwords:
-		#		edwords.append(matchObj2.group(1))
-		#matchObj3 = re.match(r'.*[ |^](.*)ly[,| |$].*', ingredient)
-		#if matchObj3:
-		#	if matchObj3.group(1) not in lywords:
-		#		lywords.append(matchObj3.group(1))
-
 	else:
 		if counter == 0:
 			file.write("[\n")
@@ -333,14 +320,7 @@ for line in ingredientsjson:
 
 file.close()
 
-#for word in edwords:
-#	print word + "ed"
 
-#for word in lywords:
-#	print word + "ly"
-#list of words to also remove:
-#en, can, dried, dry, salted, unsalted, a lot of words ending in "ed" and "ly", e.g. studded, coarsely, fine, soft
-#drained, cubed 
 
 
 
@@ -358,7 +338,7 @@ file.close()
 
 
 
-
+#function to output how similar words are
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
@@ -403,8 +383,9 @@ matrix = np.column_stack((vector, ingredients_list))
 
 matrix = matrix[order]
 matrix = list(matrix)
-#print len(matrix)
 
+#combines ingredients that are similar above the threshold together, stores the similar
+#ingredients in similarities
 def combine_ingredients(matrix, threshold):
 	similarities = {}
 
@@ -449,17 +430,14 @@ def combine_ingredients(matrix, threshold):
 
 	return final_output, similarities
 
-#print len(matrix)
 matrix, similarities = combine_ingredients(matrix, 0.75)
 
 print similarities
 
-#print len(matrix)
-#print similarities
 
 for i in matrix:
-	file.write(i[0])
-	file.write(' ')
+	# file.write(i[0])
+	# file.write(' ')
 	file.write(i[1])
 	file.write("\n")
 
@@ -519,14 +497,6 @@ for line in ingredientsjson:
 		matchObj3 = re.match(r'.*\"recipe_id\": ([^,]*),.*', line)
 
 		if matchObj:
-			if int(matchObj3.group(1)) > 335 and int(matchObj3.group(1)) <= 339:
-				counter = 1
-			if counter == 1:
-				print line
-				print matchObj.group(1)
-				print matchObj2.group(1)
-				print matchObj3.group(1)
-			#i = ingredients_list.index(str(matchObj.group(1).split(' ')[-1]))
 			for i,j in enumerate(matrix):
 				last_word = matchObj.group(1).split(' ')[-1]
 				if last_word in similarities:
@@ -540,31 +510,17 @@ for line in ingredientsjson:
 								print k
 							mass_fractions_matrix[k, i] += float(number_of_ounces)
 
-#real_mass_fractions_matrix = []
-
-
-#for i in mass_fractions_matrix:
-#	real_mass_fractions_matrix.append(normalize(i, norm='l1'))
-
-#real_mass_fractions_matrix = np.reshape(real_mass_fractions_matrix, (len(recipe_ids), len(ingredients_list)))
-
 mass_fractions_matrix = normalize(mass_fractions_matrix, norm='l1')
 
-#mass_fractions_matrix.tofile("mass_fractions_matrix.txt", sep = " ")
 
 
 np.savetxt("mass_fractions_matrix.txt", mass_fractions_matrix)
-#for i in mass_fractions_matrix:
-	#print i
 
-print mass_fractions_matrix[336]
-print mass_fractions_matrix[333]
 
 recipe_ids = np.asarray(recipe_ids)
 
 mass_fractions_matrix_with_ids = np.column_stack((recipe_ids, mass_fractions_matrix))
-#for i in mass_fractions_matrix_with_ids:
-#	print i
+
 
 
 
@@ -632,7 +588,6 @@ for line in recipesjson:
 	matchObj = re.match(r'.*\"recipe_name\": \"([^\"]*)\".*', line)
 	if matchObj:
 		recipe_names.append(matchObj.group(1))
-		#print matchObj.group(1)
 		noun_list =  extract_nouns(matchObj.group(1))
 		for word in noun_list.split(' '):
 			if word not in recipe_nouns_list:
@@ -653,10 +608,15 @@ lambdamt = 0.5
 lambdadt = 0.7
 #lambdant is the weight of the nouns in the recipe names
 lambdant = 0.5
-# print recipe_nouns
-# print recipe_nouns_list
-# print len(recipe_nouns)
-# print len(recipe_nouns_list)
+
+file = open("names.txt", "w")
+
+for i in recipe_nouns_list:
+	file.write(str(i).strip('\n'))
+	file.write('\n')
+
+file.close()
+
 
 
 recipe_nouns_matrix = np.zeros((len(mass_fractions_matrix), len(recipe_nouns_list)))
@@ -689,7 +649,6 @@ for line in description_vectors:
 		file.write(' ')
 	file.write('\n')
 
-# np.savetxt("recommender_dv.txt", description_vectors)
 
 description_vectors = np.column_stack((mass_fractions_matrix, recipe_nouns_matrix))
 
@@ -701,5 +660,4 @@ for line in description_vectors:
 		file.write(str(i).strip('\n'))
 		file.write(' ')
 	file.write('\n')
-# np.savetxt("search_dv.txt", description_vectors)
 
