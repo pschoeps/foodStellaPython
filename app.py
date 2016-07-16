@@ -31,10 +31,10 @@ class Search(Resource):
 
 class Recommend(Resource):
 	def get(self):
-		recipe = request.args.get('recipe')
-		file = open("recommender_input.txt", "w")
-		file.write(recipe)
-		file.close()
+		#recipe = request.args.get('recipe')
+		#file = open("recommender_input.txt", "w")
+		#file.write(recipe)
+		#file.close()
 		#import recommender.py
 
 		recommended_array = []
