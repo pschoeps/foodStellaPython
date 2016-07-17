@@ -45,9 +45,11 @@ for j,i in enumerate(description_vectors):
 cosine_distances = np.asarray(cosine_distances)
 order = cosine_distances.argsort()
 
+recommended_array = []
 file = open("recommender_output.txt", "w")
 for i in order[-11:][::-1][1:]:
 	file.write(str(i+1))
 	file.write('\n')
+	recommended_array.append(str(i+1))
 	#print cosine_similarity(map(float, description_vectors[x-1]), map(float, description_vectors[i]))
 file.close()

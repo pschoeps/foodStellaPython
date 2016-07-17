@@ -24,8 +24,6 @@ baked
 parmesan
 cheese
 twists
-caramel
-popcorn
 chili
 pecans
 pick-a-topper
@@ -124,6 +122,7 @@ carrot
 raisin
 almond
 cupcakes
+caramel
 apple
 crunch
 neapolitan
@@ -436,6 +435,7 @@ spices
 multigrain
 pilaf
 quinoa
+popcorn
 carol
 wheatberries
 fragrant
@@ -499,6 +499,8 @@ garlic
 homemade
 chipotle
 eye
+spice-rubbed
+eyes
 york
 strips
 sirloin
@@ -541,5 +543,3 @@ mushrooms
 silvestri
 pies
 wedges
-spice-rubbed
-eyes
