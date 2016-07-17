@@ -7,6 +7,14 @@ from sklearn.preprocessing import normalize
 from difflib import SequenceMatcher
 import nltk
 
+#patrick added this from an error with utf encoding occuring on line 576
+import sys
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
+
+
 
 ##### PART 1 ##########
 

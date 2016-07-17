@@ -16,7 +16,7 @@ file = open("recommender_input.txt", "r")
 for line in file:
 	x = int(line)
 
-#print x
+print x
 file.close()
 
 file = open("recommender_dv.txt", "r")
