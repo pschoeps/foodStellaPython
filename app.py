@@ -16,7 +16,11 @@ import csv
 import itertools
 
 #only in productin
-import database_setup
+from flask.ext.sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
 
 ingredientsfile = open("recipe_ingredients.json", "r")
 
