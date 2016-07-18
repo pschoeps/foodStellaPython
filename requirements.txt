@@ -6,3 +6,4 @@ nltk
 scipy
 sklearn
 robotframework-difflibrary
+psycopg2

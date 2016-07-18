@@ -11,9 +11,12 @@ from sklearn.preprocessing import normalize
 from difflib import SequenceMatcher
 import nltk
 import urlparse
+from scipy import spatial
+import csv
+import itertools
 
-
-
+#only in productin
+import database_setup
 
 ingredientsfile = open("recipe_ingredients.json", "r")
 
@@ -27,7 +30,7 @@ class Search(Resource):
 			search_array.append(x)
 		output_file.close()
 
-		return search_array
+		return User.query.all()
 
 class Recommend(Resource):
 	def get(self):
@@ -36,13 +39,6 @@ class Recommend(Resource):
 		file = open("recommender_input.txt", "w")
 		file.write(recipe)
 		file.close()
-
-		import re
-		from scipy import spatial
-		import csv
-		import nltk
-		import numpy as np
-		import itertools
 
 		def cosine_similarity(arr1, arr2):
 			return 1 - spatial.distance.cosine(arr1, arr2)
@@ -82,19 +78,6 @@ class Recommend(Resource):
 			#print cosine_similarity(map(float, description_vectors[x-1]), map(float, description_vectors[i]))
 		file.close()
 		return recommended_array
-		#import recommender.
-
-		#recommended_array = []
-
-		#output_file = open("recommender_output.txt", "r")
-		#for line in output_file:
-		#	x = int(line)
-		#	recommended_array.append(x)
-		#output_file.close()
-		#output_file = open("recommender_output.txt", "w")
-		#output_file.write("")
-		#output_file.close()
-		#return recommended_array
 
 
 
