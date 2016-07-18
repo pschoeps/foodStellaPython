@@ -6,4 +6,5 @@ nltk
 scipy
 sklearn
 robotframework-difflibrary
+flask-sqlalchemy
 psycopg2
