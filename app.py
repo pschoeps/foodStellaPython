@@ -37,7 +37,7 @@ class Search(Resource):
 			search_array.append(x)
 		output_file.close()
 
-		return User.query.all()
+		return Recipe.query.all()
 
 class Recommend(Resource):
 	def get(self):
@@ -85,6 +85,16 @@ class Recommend(Resource):
 			#print cosine_similarity(map(float, description_vectors[x-1]), map(float, description_vectors[i]))
 		file.close()
 		return recommended_array
+
+class Recipe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True)
+    meal_type = db.Column(db.Integer)
+    category = db.Column(db.String(80))
+    prep_time = db.Column(db.Integer)
+    cook_time = db.Column(db.Integer)
+    servings = db.Column(db.Integer)
 
 
 
