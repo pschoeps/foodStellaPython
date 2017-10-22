@@ -44,7 +44,7 @@ class Recommend(Resource):
 	def get(self):
 		recipe = request.args.get('recipe')
 		x = int(recipe)
-		recipe = 376 if x > 376 else recipe
+		recipe = "376" if x > 376 else recipe
 		file = open("recommender_input.txt", "w")
 		file.write(recipe)
 		file.close()
