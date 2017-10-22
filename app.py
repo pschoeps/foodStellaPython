@@ -41,8 +41,11 @@ class Search(Resource):
 
 class Recommend(Resource):
 	def get(self):
+    from random import randint
+    random_id = randint(1, 376)
 		recipe = request.args.get('recipe')
 		x = int(recipe)
+    recipe = random_id if x > 376
 		file = open("recommender_input.txt", "w")
 		file.write(recipe)
 		file.close()
