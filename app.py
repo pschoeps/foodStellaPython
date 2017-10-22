@@ -14,7 +14,6 @@ import urlparse
 from scipy import spatial
 import csv
 import itertools
-from random import randint
 
 #only in productin
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -29,23 +28,23 @@ db = SQLAlchemy(app)
 ingredientsfile = open("recipe_ingredients.json", "r")
 
 class Search(Resource):
-    def get(self):
-		search_array = []
+		def get(self):
+			search_array = []
 
-		output_file = open("search_output.txt", "r")
-		for line in output_file:
-			x = int(line)
-			search_array.append(x)
-		output_file.close()
+			output_file = open("search_output.txt", "r")
+			for line in output_file:
+				x = int(line)
+				search_array.append(x)
+			output_file.close()
 
-		return Recipe.query.all()
+			return Recipe.query.all()
 
 class Recommend(Resource):
 	def get(self):
-    random_id = randint(1, 376)
+		random_id = randint(1, 376)
 		recipe = request.args.get('recipe')
 		x = int(recipe)
-    recipe = random_id if x > 376
+		recipe = random_id if x > 376 else recipe
 		file = open("recommender_input.txt", "w")
 		file.write(recipe)
 		file.close()
@@ -90,14 +89,14 @@ class Recommend(Resource):
 		return recommended_array
 
 class Recipe(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-    email = db.Column(db.String(120), unique=True)
-    meal_type = db.Column(db.Integer)
-    category = db.Column(db.String(80))
-    prep_time = db.Column(db.Integer)
-    cook_time = db.Column(db.Integer)
-    servings = db.Column(db.Integer)
+		id = db.Column(db.Integer, primary_key=True)
+		name = db.Column(db.String(80))
+		email = db.Column(db.String(120), unique=True)
+		meal_type = db.Column(db.Integer)
+		category = db.Column(db.String(80))
+		prep_time = db.Column(db.Integer)
+		cook_time = db.Column(db.Integer)
+		servings = db.Column(db.Integer)
 
 
 
@@ -110,4 +109,4 @@ api.add_resource(Recommend, '/recommend')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+		app.run(debug=True)
