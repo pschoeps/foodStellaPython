@@ -14,6 +14,7 @@ import urlparse
 from scipy import spatial
 import csv
 import itertools
+from random import randint
 
 #only in productin
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -41,10 +42,9 @@ class Search(Resource):
 
 class Recommend(Resource):
 	def get(self):
-		random_id = randint(1, 376)
 		recipe = request.args.get('recipe')
 		x = int(recipe)
-		recipe = random_id if x > 376 else recipe
+		recipe = 376 if x > 376 else recipe
 		file = open("recommender_input.txt", "w")
 		file.write(recipe)
 		file.close()
